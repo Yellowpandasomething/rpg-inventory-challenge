@@ -17,16 +17,36 @@ j_shop = ""
 ## Functions
 def main_loop(purchase_list):
     choice = input("Choice: ")
-    if choice.lower :
+    if choice.lower == "a":
         print()
+    if choice.lower == "b":
+        print()
+    if choice.lower == "c":
+        print()
+    if choice.lower == "d":
+        print()
+    if choice.lower == "e":
+        print()
+    if choice.lower == "z":
+        return purchase_list
     return purchase_list 
 def ending_logic(purchase_list):
     item_total(purchase_list)
     if fieren_magic:
-            print()
+            print("Fieren blew all your stuff on a spell that allows you to detect if an ingredient you don’t want is in your food and is now in debt.")
+            print("BAD SPELL ENDING")
+            print("Reopen to play again...")
 def item_total(purchase_list):
     print("You have left Lumiose City with:")
     print(str(purchase_list["Silver"]),"Silver")
+    if purchase_list["Armor"]:
+        print(str(purchase_list["Armor"]),"Units of Armor")
+    if purchase_list["Weapons"]:
+        print(str(purchase_list["Weapons"]),"Units of Weapons")
+    if purchase_list["Food"]:
+        print(str(purchase_list["Food"]),"Units of Food")
+    if purchase_list["Potions"]:
+        print(str(purchase_list["Potions"]),"Potions")
 
 
 ## Main Code
