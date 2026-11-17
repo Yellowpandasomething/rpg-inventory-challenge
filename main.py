@@ -33,9 +33,35 @@ def main_loop(purchase_list):
 def ending_logic(purchase_list):
     item_total(purchase_list)
     if fieren_magic:
-            print("Fieren blew all your stuff on a spell that allows you to detect if an ingredient you don’t want is in your food and is now in debt.")
-            print("BAD SPELL ENDING")
-            print("Reopen to play again...")
+        print("""
+        Fieren blew all your stuff on a spell that allows you to detect if an ingredient you don’t want is in your food and is now in debt.
+        """)
+        print("BAD SPELL ENDING")
+        print("Reopen to play again...")
+    elif purchase_list["Silver"] < 0:
+        print("""
+        You have mismanaged your teams funds in your quest for getting the most stuff, the team will now be jailed for not being able to pay their debts.
+        """)
+        print("BAD DEBT ENDING")
+        print("Reopen to play again...")
+    elif purchase_list["Fieren Mood"] <= 0 or purchase_list["Stark Mood"] <= 0 or purchase_list["Fern Mood"] <= 0:
+        print("""
+        That person has felt so horrible that they’ve decided to leave the group. The group obviously can’t function without every member, so this will lead to the group’s demise.
+        """)
+        print("BAD RELATIONSHIP ENDING")
+        print("Reopen to play again...")
+    elif purchase_list["Food"] :
+        print("""
+        You have not gotten enough supplies for the team, meaning that they won’t survive (or at least it’ll be thin).
+        """)
+        print("BAD SUPPLIES ENDING")
+        print("Reopen to play again...")
+    else:
+        print("""
+        You did it! The team is all ready to continue and they’ll be stocked until they get to the next city!
+        """)
+        print("GOOD ENDING")
+        print("Reopen to play again...")
 def item_total(purchase_list):
     print("You have left Lumiose City with:")
     print(str(purchase_list["Silver"]),"Silver")
