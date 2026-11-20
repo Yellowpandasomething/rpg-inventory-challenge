@@ -1,5 +1,5 @@
 import random
-purchase_list = {"Silver": 500, "Armor": 110, "Weapons": 110, "Food": 110, "Potions": 110, "Fieren Mood": 100, "Stark Mood": 100, "Fern Mood": 100}
+purchase_list = {"Silver": 500, "Armor": 0, "Weapons": 0, "Food": 0, "Potions": 0, "Team Mood": 100}
 fieren_magic = False
 ## Scripts
 welcome_script = "Frieren, Stark, and Fern are in a city, refuelling before continuing on their journey to the demon king’s palace. "
@@ -15,24 +15,24 @@ Welcome to the MainTouwn Inn! A room will cost 100 silver, and will rest your te
 """
 bad_news = "While you were resting, a thief snuck into your room and stole some of your items!"
 w_shop = """
-Welcome to Too Pointy Too Stabby!
-    1/Q - 
-    2/W -  Credits
-    3/E - 
+Welcome to Too Pointy Too Stabby! Where we sell weapons so pointy that not even we can handle them!
+    1/Q - 40 Credits (Team Worth: 30) - Secondhand and used weapons
+    2/W - 83 Credits (Team Worth: 50) - Weapon repair
+    3/E - 174 Credits (Team Worth: 100) - Brand new fancy weapons
     Z - Go back to the city
 """
 a_shop = """
-Welcome to Blocked!
-    1/Q - 
-    2/W - 
-    3/E - 
+Welcome to Blocked! Making sure all damage gets blocked!
+    1/Q - 31 Credits (Team Worth: 30) - Old, used, and dingy armor
+    2/W - 66 Credits (Team Worth: 50) - Armor repair
+    3/E - 139 Credits (Team Worth: 100) - High impact peformance armor
     Z - Go back to the city
 """
 m_shop = """
-Welcome to Albus Dumbledore's Magic Emporium!
-    1/Q - 
-    2/W - 
-    3/E - 
+Welcome to Albus Dumbledore's Magic Emporium! The old shopkeeper sees that one of your team members is more magic inclined, it's best if you get in and get out.
+    1/Q - 16 Credits (Team Worth: 30) - Magic Spell
+    2/W - 34 Credits (Team Worth: 50) - 10 potions
+    3/E - 71 Credits (Team Worth: 100) - Magic item
     Z - Go back to the city
 """
 alley = """
@@ -43,13 +43,17 @@ You enter into a dark alley, it's a bit of a squeeze but your team make it throu
 """
 f_shop = """
 The guy running the food stand actually has hot foods available, but considering that you are buying for a journey, they might not have the same value as prepared foods.
-    1/Q - 
-    2/W - 
-    3/E - 
-    Z - Go back to the city
+    1/Q - 36 Credits (Team Worth: 30) - Hot snacks
+    2/W - 17 Credits (Team Worth: 50) - Prepared foods (stone bread)
+    3/E - 8 Credits (Team Worth: 100) - Leftovers (Previous days)
+    Z - Go back to the alley
 """
 j_shop = """
-
+The woman running the jewelry stand looks like she has a lot of experience, but the items she's selling wil make your team happier.
+    1/Q - 24 Credits (Team Worth: 30) - Perfumes
+    2/W - 50 Credits (Team Worth: 50) - Matching set of jewelry
+    3/E - 105 Credits (Team Worth: 100) - Pure gems
+    Z - Go back to the alley
 """
 ## Functions
 def main_loop():
@@ -75,9 +79,7 @@ def inn_logic():
     choice = input("Choice: ")
     if choice.lower() == "y":
         purchase_list["Silver"] = purchase_list["Silver"] - 100
-        purchase_list["Fieren Mood"] = 100
-        purchase_list["Stark Mood"] = 100
-        purchase_list["Fern Mood"] = 100
+        purchase_list["Team Mood"] = 100
         lose_items()
         main_loop()
     elif choice.lower() == "n":
@@ -87,8 +89,21 @@ def inn_logic():
 def w_shop_logic():
     print(w_shop)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice == "1" or choice.lower() == "q":
+        purchase_list["Silver"] -= 40
+        purchase_list["Weapons"] += 30
+        print(f"Silver left: {purchase_list['Silver']}")
+        w_shop_logic()
+    elif choice == "2" or choice.lower() == "w":
+        purchase_list["Silver"] -= 83
+        purchase_list["Weapons"] += 50
+        print(f"Silver left: {purchase_list['Silver']}")
+        w_shop_logic()
+    elif choice == "3" or choice.lower() == "e":
+        purchase_list["Silver"] -= 174
+        purchase_list["Weapons"] += 100
+        print(f"Silver left: {purchase_list['Silver']}")
+        w_shop_logic()
     elif choice.lower() == "z":
         main_loop()
     else:
@@ -96,71 +111,128 @@ def w_shop_logic():
 def a_shop_logic():
     print(a_shop)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice == "1" or choice.lower() == "q":
+        purchase_list["Silver"] -= 31
+        purchase_list["Armor"] += 30
+        print(f"Silver left: {purchase_list['Silver']}")
+        a_shop_logic()
+    elif choice == "2" or choice.lower() == "w":
+        purchase_list["Silver"] -= 66
+        purchase_list["Armor"] += 50
+        print(f"Silver left: {purchase_list['Silver']}")
+        a_shop_logic()
+    elif choice == "3" or choice.lower() == "e":
+        purchase_list["Silver"] -= 139
+        purchase_list["Armor"] += 100
+        print(f"Silver left: {purchase_list['Silver']}")
+        a_shop_logic()
     elif choice.lower() == "z":
         main_loop()
     else:
         a_shop_logic()
 def m_shop_logic():
-    print(w_shop)
+    print(m_shop)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice == "1" or choice.lower() == "q":
+        purchase_list["Silver"] -= 16
+        purchase_list["Potions"] += 30
+        print(f"Silver left: {purchase_list['Silver']}")
+        fieren_magic = True
+        m_shop_logic()
+    elif choice == "2" or choice.lower() == "w":
+        purchase_list["Silver"] -= 34
+        purchase_list["Potions"] += 50
+        print(f"Silver left: {purchase_list['Silver']}")
+        m_shop_logic()
+    elif choice == "3" or choice.lower() == "e":
+        purchase_list["Silver"] -= 71
+        purchase_list["Potions"] += 100
+        print(f"Silver left: {purchase_list['Silver']}")
+        fieren_magic = True
+        m_shop_logic()
     elif choice.lower() == "z":
         main_loop()
     else:
-        w_shop_logic()
+        fieren_magic = True
+        m_shop_logic()
 def alley_logic():
-    print(w_shop)
+    print(alley)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice.lower() == "f":
+        f_shop_logic()
+    elif choice.lower() == "g":
+        j_shop_logic()
     elif choice.lower() == "z":
         main_loop()
     else:
-        w_shop_logic()
+        alley_logic()
 def f_shop_logic():
-    print(w_shop)
+    print(f_shop)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice == "1" or choice.lower() == "q":
+        purchase_list["Silver"] -= 36
+        purchase_list["Food"] += 30
+        print(f"Silver left: {purchase_list['Silver']}")
+        f_shop_logic()
+    elif choice == "2" or choice.lower() == "w":
+        purchase_list["Silver"] -= 17
+        purchase_list["Food"] += 50
+        print(f"Silver left: {purchase_list['Silver']}")
+        f_shop_logic()
+    elif choice == "3" or choice.lower() == "e":
+        purchase_list["Silver"] -= 8
+        purchase_list["Food"] += 100
+        print(f"Silver left: {purchase_list['Silver']}")
+        f_shop_logic()
     elif choice.lower() == "z":
-        main_loop()
+        alley_logic()
     else:
-        w_shop_logic()
+        f_shop_logic()
 def j_shop_logic():
-    print(w_shop)
+    print(j_shop)
     choice = input("Choice: ")
-    if choice.lower() == "1" or choice.lower() == "q":
-        
+    if choice == "1" or choice.lower() == "q":
+        purchase_list["Silver"] -= 24
+        purchase_list["Team Mood"] += 30
+        print(f"Silver left: {purchase_list['Silver']}")
+        j_shop_logic()
+    elif choice == "2" or choice.lower() == "w":
+        purchase_list["Silver"] -= 50
+        purchase_list["Team Mood"] += 50
+        print(f"Silver left: {purchase_list['Silver']}")
+        j_shop_logic()
+    elif choice == "3" or choice.lower() == "e":
+        purchase_list["Silver"] -= 105
+        purchase_list["Team Mood"] += 100
+        print(f"Silver left: {purchase_list['Silver']}")
+        j_shop_logic()
     elif choice.lower() == "z":
-        main_loop()
+        alley_logic()
     else:
-        w_shop_logic()
+        j_shop_logic()
 
 def lose_items():
     rannum = random.randint(1, 5)
     if rannum == 1:
         if purchase_list["Armor"] > 0:
             purchase_list["Armor"] -= 10
-            print("You lost 10 unit of armors!")
             print(bad_news)
+            print("You lost 10 unit of armors!")
     elif rannum == 2:
         if purchase_list["Weapons"] > 0:
             purchase_list["Weapons"] -= 10
-            print("You lost 10 unit of weapons!")
             print(bad_news)
+            print("You lost 10 unit of weapons!")
     elif rannum == 3:
         if purchase_list["Food"] > 0:
             purchase_list["Food"] -= 10
-            print("You lost 10 unit of food!")
             print(bad_news)
+            print("You lost 10 unit of food!")
     elif rannum == 4:
         if purchase_list["Potions"] > 0:
             purchase_list["Potions"] -= 10
-            print("You lost 10 potions!")
             print(bad_news)
+            print("You lost 10 potions!")
     elif rannum == 5:
         print("There was news of a thief in the MainTouwn Inn, but none of your belongings were stolen!")
 def ending_logic():
@@ -175,12 +247,12 @@ def ending_logic():
 """You have mismanaged your teams funds in your quest for getting the most stuff, the team will now be jailed for not being able to pay their debts."""
 )
         print("BAD DEBT ENDING")
-    elif purchase_list["Fieren Mood"] <= 0 or purchase_list["Stark Mood"] <= 0 or purchase_list["Fern Mood"] <= 0:
+    elif purchase_list["Team Mood"] <= 0:
         print(
 """That person has felt so horrible that they’ve decided to leave the group. The group obviously can’t function without every member, so this will lead to the group’s demise."""
         )
         print("BAD RELATIONSHIP ENDING")
-    elif purchase_list["Food"] :
+    elif purchase_list["Armor"] < 50 or purchase_list["Weapons"] < 50 or purchase_list["Food"] < 50 or purchase_list["Potions"] < 50:
         print(
 """You have not gotten enough supplies for the team, meaning that they won’t survive (or at least it’ll be thin)."""
         )
